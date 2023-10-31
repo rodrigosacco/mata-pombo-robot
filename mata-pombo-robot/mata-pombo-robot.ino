@@ -20,7 +20,7 @@ void onConnectedGamepad(GamepadPtr gp) {
   }
   if (!foundEmptySlot) {
     Serial.println(
-        "CALLBACK: Gamepad connected, but could not found empty slot");
+        "CALLBACK: Controle conectado, mas nenhum slot foi encontrado");
   }
 }
 
@@ -29,7 +29,7 @@ void onDisconnectedGamepad(GamepadPtr gp) {
 
   for (int i = 0; i < BP32_MAX_GAMEPADS; i++) {
     if (myGamepads[i] == gp) {
-      Serial.printf("CALLBACK: Gamepad is disconnected from index=%d\n", i);
+      Serial.printf("CALLBACK: Controle está desconectado do index=%d\n", i);
       myGamepads[i] = nullptr;
       foundGamepad = true;
       break;
@@ -38,7 +38,7 @@ void onDisconnectedGamepad(GamepadPtr gp) {
 
   if (!foundGamepad) {
     Serial.println(
-        "CALLBACK: Gamepad disconnected, but not found in myGamepads");
+        "CALLBACK: Controle disconectado, mas não encontrado no myGamepads");
   }
 }
 
