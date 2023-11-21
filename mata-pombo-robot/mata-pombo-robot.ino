@@ -43,8 +43,8 @@ void onDisconnectedGamepad(GamepadPtr gp) {
 }
 
 //Motores
-#define pin_in1 14
-#define pin_in2 12 
+#define pin_in1 12
+#define pin_in2 14 
 #define pin_ena 13
 
 #define pin_in3 27
@@ -90,68 +90,72 @@ void loop() {
       int brake = myGamepad->brake();
       int buttonCode = myGamepad->buttons();
       
-      int rthrottle_m1 = throttle * 0.0977;
-      int rthrottle_m2 = throttle * 0.0977;
+      int rthrottle = throttle * 0.2199;
       //Forward
-      if(throttle > 5){
+      if(throttle > 20){
         digitalWrite(pin_in1, HIGH);
         digitalWrite(pin_in2, LOW);
         digitalWrite(pin_in3, HIGH);
         digitalWrite(pin_in4, LOW);
-        analogWrite(pin_ena, rthrottle_m1);
-        analogWrite(pin_enb, rthrottle_m2);
+        analogWrite(pin_ena, rthrottle);
+        analogWrite(pin_enb, rthrottle);
       }
 
       //Forward + Left
-      if(throttle > 5 && buttonCode == 0x00a0){
+      if(throttle > 20 && buttonCode == 0x00a0){
         digitalWrite(pin_in1, HIGH);
         digitalWrite(pin_in2, LOW);
         digitalWrite(pin_in3, LOW);
         digitalWrite(pin_in4, LOW);
-        analogWrite(pin_ena, rthrottle_m1);
+        analogWrite(pin_ena, rthrottle);
       }
 
       //Forward + Right
-      if(throttle > 5 && buttonCode == 0x0090){
+      if(throttle > 20 && buttonCode == 0x0090){
         digitalWrite(pin_in1, LOW);
         digitalWrite(pin_in2, LOW);
         digitalWrite(pin_in3, HIGH);
         digitalWrite(pin_in4, LOW);
-        analogWrite(pin_ena, rthrottle_m2);
+        analogWrite(pin_enb, rthrottle);
       }
 
       //Reverse
-      int rbrake_m1 = brake * 0.0097;
-      int rbrake_m2 = brake * 0.0097;
-      if(rbrake_m1 > 5){
+      int rbrake = brake * 0.2199;
+      if(brake > 100){
         digitalWrite(pin_in1, LOW);
         digitalWrite(pin_in2, HIGH);
         digitalWrite(pin_in3, LOW);
         digitalWrite(pin_in4, HIGH);
-        analogWrite(pin_ena, rbrake_m1);
-        analogWrite(pin_ena, rbrake_m2);
+        analogWrite(pin_ena, rbrake);
+        analogWrite(pin_enb, rbrake);
       }
 
       //Reverse + Left
-      if(rbrake_m1 > 5 && buttonCode == 0x0050){
+      if(brake > 100 && buttonCode == 0x0050){
         digitalWrite(pin_in1, LOW);
         digitalWrite(pin_in2, HIGH);
         digitalWrite(pin_in3, LOW);
-        digitalWrite(pin_in4, HIGH);
-        analogWrite(pin_ena, rbrake_m1);
-        analogWrite(pin_ena, rbrake_m2);
+        digitalWrite(pin_in4, LOW);
+        analogWrite(pin_enb, rbrake);
       }
 
       //Reverse + Right
-      if(rbrake_m1 > 5 && buttonCode == 0x0060){
+      if(brake > 100 && buttonCode == 0x0060){
         digitalWrite(pin_in1, LOW);
-        digitalWrite(pin_in2, HIGH);
+        digitalWrite(pin_in2, LOW);
         digitalWrite(pin_in3, LOW);
         digitalWrite(pin_in4, HIGH);
-        analogWrite(pin_ena, rbrake_m1);
-        analogWrite(pin_ena, rbrake_m2);
+        analogWrite(pin_ena, rbrake);
       }
 
+      if(buttonCode == 0x0001){
+        digitalWrite(pin_in1, LOW);
+        digitalWrite(pin_in2, LOW);
+        digitalWrite(pin_in3, LOW);
+        digitalWrite(pin_in4, LOW);
+        analogWrite(pin_ena, 0);
+        analogWrite(pin_enb, 0);
+      }
     }
   }
 }
