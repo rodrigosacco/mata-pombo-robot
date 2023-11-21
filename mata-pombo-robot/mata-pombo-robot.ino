@@ -90,7 +90,7 @@ void loop() {
       int brake = myGamepad->brake();
       int buttonCode = myGamepad->buttons();
       
-      int rthrottle = throttle * 0.2199;
+      int rthrottle = throttle * 0.0977;
       //Forward
       if(throttle > 20){
         digitalWrite(pin_in1, HIGH);
@@ -120,7 +120,7 @@ void loop() {
       }
 
       //Reverse
-      int rbrake = brake * 0.2199;
+      int rbrake = brake * 0.09775;
       if(brake > 100){
         digitalWrite(pin_in1, LOW);
         digitalWrite(pin_in2, HIGH);
